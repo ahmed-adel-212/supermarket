@@ -11,6 +11,7 @@ class Banner extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    use Logger;
 
     public function image(): Attribute
     {

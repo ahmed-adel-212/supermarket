@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class PointTransaction extends Model
 {
     use HasFactory;
+    use Logger;
 
     protected $guarded = [];
 

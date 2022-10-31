@@ -15,6 +15,7 @@ class Category extends Model
     use HasFactory;
     use SoftDeletes;
     use HasTranslations;
+    use Logger;
 
     protected $guarded = [];
 

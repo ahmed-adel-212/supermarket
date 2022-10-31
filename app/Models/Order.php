@@ -12,6 +12,7 @@ class Order extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    use Logger;
 
     protected $guarded = [];
 

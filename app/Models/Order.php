@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Order extends Model
@@ -25,4 +26,9 @@ class Order extends Model
         'points_paid' => 'double',
         'offer_value' => 'double',
     ];
+
+    public function products(): BelongsToMany
+    {
+        return $this->belongsToMany(Product::class)->as('order_product');
+    }
 }

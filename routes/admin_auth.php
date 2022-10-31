@@ -34,7 +34,7 @@ Route::middleware('guest')->prefix('admin')->namespace('Website/Admin')->name('a
                 ->name('password.update');
 });
 
-Route::middleware(['auth', 'user_type:admin'])->prefix('admin')->namespace('Website/Admin')->name('admin.')->group(function () {
+Route::middleware(['auth:api', 'user_type:admin'])->prefix('admin')->namespace('Website/Admin')->name('admin.')->group(function () {
 //     Route::get('verify-email', [EmailVerificationPromptController::class, '__invoke'])
 //                 ->name('verification.notice');
 

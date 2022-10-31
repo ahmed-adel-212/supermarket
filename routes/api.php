@@ -25,4 +25,9 @@ Route::name('api.')->namespace('Api')->group(function() {
     Route::post('login/cashier', [AuthController::class, 'cashierLogin'])->name('login.cashier');
 
     Route::post('register', [AuthController::class, 'register'])->name('register');
+
+    Route::middleware(['auth:api'])->group(function() {
+        
+    });
 });
+

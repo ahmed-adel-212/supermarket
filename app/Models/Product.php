@@ -17,6 +17,14 @@ class Product extends Model
 
     public $translatable = ['name', 'description'];
 
+    protected $casts = [
+        'id' => 'int',
+        'category_id' => 'int',
+        'offer_id' => 'int',
+        'price' => 'double',
+        'recommended' => 'boolean',
+    ];
+
     public function image(): Attribute
     {
         return Attribute::make(

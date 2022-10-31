@@ -26,7 +26,7 @@ return new class extends Migration
             $table->integer('quantity')->comment('or buy quantity');
             $table->double('offer_price')->comment('or discount value');
             // discount offer
-            $table->enum('discount_type', ['value', 'percentage'])->nullable();
+            $table->enum('discount_type', ['value', 'percentage'])->default('percentage');
             // buy-and-get offer
             $table->integer('get_quantity')->nullable();
             $table->timestamps();

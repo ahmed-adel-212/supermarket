@@ -2,6 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Area;
+use App\Models\City;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,8 +19,13 @@ class AddressFactory extends Factory
      */
     public function definition()
     {
+        // $area = Area::factory()->create();
         return [
-            //
+            'user_id' => fn() => User::factory(),
+            // 'city_id' => fn() => $area->city_id,
+            'area_id' => fn() => Area::factory(),
+            'name' => fake()->address,
+            'street' => fake()->streetName,
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Auth;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -30,7 +31,8 @@ class Product extends Model
     ];
     
     protected $appends = [
-        'offer_price'
+        'offer_price',
+        'is_favourite'
     ];
 
     public function image(): Attribute
@@ -63,6 +65,19 @@ class Product extends Model
         );
     }
 
+    public function isFavourite(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                if (!Auth::check()) {
+                    return false;
+                }
+
+                return $this->favourites()->where('user_id', Auth::id())->exists();
+            },
+        );
+    }
+
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
@@ -76,5 +91,15 @@ class Product extends Model
     public function order(): BelongsToMany
     {
         return $this->belongsToMany(Order::class)->as('order_product');
+    }
+
+    /**
+     * define favourite items to users relationship
+     *
+     * @return Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function favourites(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'favourite_product')->as('favourite_product');
     }
 }

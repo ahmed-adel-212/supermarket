@@ -20,7 +20,8 @@ return new class extends Migration
             $table->dateTime('date_to');
             $table->text('description');
             $table->string('image')->nullable();
-            $table->string('offer_type')->default('discount');
+            $table->enum('offer_type', ['discount', 'buy-get'])->default('discount');
+            $table->enum('service_type', ['takeaway', 'delivery'])->default('delivery');
             $table->boolean('main')->default(false);
             $table->integer('quantity')->comment('or buy quantity');
             $table->double('offer_price')->comment('or discount value');

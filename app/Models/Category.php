@@ -13,6 +13,8 @@ class Category extends Model
     use \Spatie\Translatable\HasTranslations;
     use SoftDeletes;
 
+    protected $guarded = [];
+
     public $translatable = ['name', 'description'];
 
     public function image(): Attribute

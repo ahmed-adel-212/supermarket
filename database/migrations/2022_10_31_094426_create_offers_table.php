@@ -19,9 +19,9 @@ return new class extends Migration
             $table->dateTime('date_from');
             $table->dateTime('date_to');
             $table->text('description');
-            $table->string('image');
-            $table->string('offer_type');
-            $table->boolean('main');
+            $table->string('image')->nullable();
+            $table->string('offer_type')->default('discount');
+            $table->boolean('main')->default(false);
             $table->integer('quantity')->comment('or buy quantity');
             $table->double('offer_price')->comment('or discount value');
             // discount offer

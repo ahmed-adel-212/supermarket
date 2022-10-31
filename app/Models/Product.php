@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Translatable\HasTranslations;
 
-class Offer extends Model
+class Product extends Model
 {
     use HasFactory;
     use SoftDeletes;
@@ -15,5 +15,5 @@ class Offer extends Model
 
     protected $guarded = [];
 
-    public $translatable = ['title', 'description'];
+    public $translatable = ['name', 'description'];
 }

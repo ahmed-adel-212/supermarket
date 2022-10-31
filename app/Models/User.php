@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -25,6 +25,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'phone',
+        'email_verified_at',
+        'type'
     ];
 
     /**
@@ -63,9 +66,9 @@ class User extends Authenticatable
         return $this->type === 'cashier';
     }
 
-    public function isUser()
+    public function isCustomer()
     {
-        return $this->type === 'user';
+        return $this->type === 'customer';
     }
     
     /**

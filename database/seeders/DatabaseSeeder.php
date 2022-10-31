@@ -29,5 +29,16 @@ class DatabaseSeeder extends Seeder
             'type' => 'admin',
             'password' => Hash::make('admin123'),
         ]);
+
+        User::factory()->create([
+            'email' => 'ahmed2@gmail.com',
+            'type' => 'cashier',
+            'password' => Hash::make('admin123'),
+        ]);
+
+        User::factory()->create([
+            'email' => 'md.sallam@gmail.com',
+            'password' => Hash::make('123456789'),
+        ]);
     }
 }

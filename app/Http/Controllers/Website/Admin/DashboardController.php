@@ -21,8 +21,10 @@ class DashboardController extends Controller
         $categoriesCount = Category::count();
 
         // customers
-        $customersCount = User::whereType('user')->count();
+        $customersCount = User::whereType('customer')->count();
 
-        return view('admin.dashboard', compact('ordersCount', 'productsCount', 'categoriesCount', 'customersCount'));
+        $customers = User::all();
+
+        return view('admin.dashboard', compact('ordersCount', 'productsCount', 'categoriesCount', 'customersCount', 'customers'));
     }
 }

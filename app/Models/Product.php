@@ -16,4 +16,11 @@ class Product extends Model
     protected $guarded = [];
 
     public $translatable = ['name', 'description'];
+
+    public function image(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => (!empty($value) && file_exists(public_path($value))) ? url($value) : 'http://via.placeholder.com/200x200?text=No+Image',
+        );
+    }
 }

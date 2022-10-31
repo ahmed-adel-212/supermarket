@@ -21,7 +21,15 @@ class Offer extends Model
 
     protected $appends = ['is_available'];
 
-   
+    protected $casts = [
+        'date_from' => 'datetime:Y-m-d',
+        'date_to' => 'datetime:Y-m-d',
+        'main' => 'bool',
+        'quantity' => 'int',
+        'offer_price' => 'double',
+        'get_quantity' => 'int',
+        'id' => 'int',
+    ];
 
     public function image(): Attribute
     {

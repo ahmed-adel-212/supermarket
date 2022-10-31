@@ -8,6 +8,7 @@
         "php": "^8.0.2",
         "artesaos/seotools": "^1.0",
         "guzzlehttp/guzzle": "^7.2",
+        "jeroennoten/laravel-adminlte": "^3.8",
         "laravel/framework": "^9.19",
         "laravel/passport": "^11.3",
         "laravel/sanctum": "^3.0",

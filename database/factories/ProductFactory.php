@@ -20,7 +20,7 @@ class ProductFactory extends Factory
     {
         return [
             'category_id' => fn() => Category::factory(),
-            'offer_id' => fn() => fake()->boolean(40) ? Offer::factory() : null,
+            // 'offer_id' => fn() => fake()->boolean(40) ? Offer::factory() : null,
             'name' => [
                 'en' => fake()->sentence,
                 'ar' => fake('ar/SA')->name,
@@ -29,7 +29,7 @@ class ProductFactory extends Factory
                 'en' => fake()->text,
                 'ar' => fake('ar/SA')->realText,
             ],
-            'price' => fake()->randomFloat(2),
+            'price' => fake()->randomFloat(2, 50, 1500),
             'recommended' => fake()->boolean(30),
         ];
     }

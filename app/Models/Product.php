@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Translatable\HasTranslations;
 
@@ -67,8 +68,8 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function offer(): BelongsTo
+    public function offer(): BelongsToMany
     {
-        return $this->belongsTo(Offer::class);
+        return $this->belongsToMany(Offer::class)->as('offer_product');
     }
 }

@@ -40,17 +40,17 @@ class Offer extends Model
 
     public function isAvailable(): Attribute
     {
-        $today = \Carbon\Carbon::now();
+        $today = now();
         $dateFrom = $this->date_from;
         $dateTo = $this->date_to;
 
         return Attribute::make(
-            get: fn () => $today->gt($dateFrom) && $today->lt($dateTo),
+            get: fn () => $today->gte($dateFrom) && $today->lte($dateTo),
         );
     }
 
     public function products(): BelongsToMany
     {
-        return $this->belongsToMany(Product::class);
+        return $this->belongsToMany(Product::class)->as('order_product');
     }
 }

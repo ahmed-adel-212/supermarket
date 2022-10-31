@@ -24,7 +24,7 @@ class OrderFactory extends Factory
         $subTotal = fake()->randomFloat(2, 5, 500.2);
         $taxes = fake()->randomDigitNotZero();
         $delivery_fees = fake()->randomFloat(2, 0, 30);
-        $total = $subTotal + $delivery_fees + $subTotal;
+        $total = $subTotal + $delivery_fees + $taxes;
         return [
             'user_id' => fn() => User::factory(),
             'address_id' => fn() => Address::factory(),

@@ -20,6 +20,11 @@ class Category extends Model
 
     public $translatable = ['name', 'description'];
 
+    protected $casts = [
+        'id' => 'int',
+        'category_id' => 'int',
+    ];
+
     public function image(): Attribute
     {
         return Attribute::make(

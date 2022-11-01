@@ -8,7 +8,7 @@ class OrderProduct extends Pivot
 {
     public $guarded = [];
 
-    protected $timestamps = false;
+    public $timestamps = false;
 
     protected $casts = [
         'id' => 'int',

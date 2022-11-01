@@ -31,6 +31,7 @@ class ProductFactory extends Factory
             ],
             'price' => fake()->randomFloat(2, 50, 1500),
             'recommended' => fake()->boolean(30),
+            'stock' => random_int(0, 350),
         ];
     }
 }

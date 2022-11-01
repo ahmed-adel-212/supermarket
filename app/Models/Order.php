@@ -26,8 +26,8 @@ class Order extends Model
         'total' => 'double',
         'taxes' => 'double',
         'delivery_fees' => 'double',
-        'points_paid' => 'double',
-        'offer_value' => 'double',
+        'points_price' => 'double',
+        'offer_discount' => 'double',
     ];
 
     public function products(): BelongsToMany

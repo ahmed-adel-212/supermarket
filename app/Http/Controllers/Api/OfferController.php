@@ -17,15 +17,15 @@ class OfferController extends AbstractApiController
         // get all parent categories with sub categories
         $categories = Category::with('sub_categories')->whereNull('category_id')->get();
 
-        $firstSubCategory = $categories->first()->sub_categories?->first();
-
-        // load products of only first category
-        $firstSubCategory->products = Product::select(DB::raw('products.*'))
-            ->join(DB::raw('offer_product op'), 'op.product_id', 'products.id')
-            ->join(DB::raw('offers o'), 'o.id', 'op.offer_id')
-            ->where(DB::raw('DATE(o.date_from)'), '<=', now())
-            ->where(DB::raw('DATE(o.date_to)'), '>=', now())
-            ->paginate();
+        if ($categories->first()?->sub_categories?->first()) {
+            // load products of only first category
+            $categories->first()->sub_categories->first()->products = Product::select(DB::raw('products.*'))
+                ->join(DB::raw('offer_product op'), 'op.product_id', 'products.id')
+                ->join(DB::raw('offers o'), 'o.id', 'op.offer_id')
+                ->where(DB::raw('DATE(o.date_from)'), '<=', now())
+                ->where(DB::raw('DATE(o.date_to)'), '>=', now())
+                ->paginate();
+        }
 
         return $this->sendResponse(compact('categories'));
     }

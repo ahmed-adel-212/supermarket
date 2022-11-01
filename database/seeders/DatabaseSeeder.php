@@ -15,6 +15,7 @@ use App\Models\NotificationLog;
 use App\Models\Offer;
 use App\Models\OfferProduct;
 use App\Models\Order;
+use App\Models\OrderProduct;
 use App\Models\PointTransaction;
 use App\Models\Product;
 use App\Models\User;
@@ -105,7 +106,19 @@ class DatabaseSeeder extends Seeder
         });
 
         // create orders
-        // create manually
+        Order::factory(5)->create([
+            'user_id' => $customer->id,
+            'address_id' => Address::where('user_id', $customer->id)->inRandomOrder()->first()->id,
+        ])->each(function(Order $order) {
+            foreach (range(1, 5) as $i) {
+                new OrderProduct([
+                    'product_id' => Product::inRandomOrder()->first()->id,
+                    'order_id' => $order->id,
+                    'quantity' => random_int(1, 7),
+                    'price' => Product::inRandomOrder()->first()->price,
+                ]);
+            }
+        });
 
 
         // favourites
@@ -121,7 +134,7 @@ class DatabaseSeeder extends Seeder
 
         // points transaction
         PointTransaction::factory(15)->create([
-            'user_id' => 3 // customer
+            'user_id' => $customer->id
         ]);
     }
 }

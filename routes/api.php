@@ -5,9 +5,9 @@ use App\Http\Controllers\Api\FavouriteController;
 use App\Http\Controllers\Api\LoyaltyController;
 use App\Http\Controllers\Api\MenuController;
 use App\Http\Controllers\Api\ProfileController;
-use App\Http\Controllers\Api\MenuController;
 use App\Http\Controllers\Api\AddressesController;
 use App\Http\Controllers\Api\OfferController;
+use App\Http\Controllers\Api\OrderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -58,6 +58,10 @@ Route::name('api.')->group(function () {
             Route::get('', 'index')->name('index');
             Route::get('history', 'history')->name('history');
             Route::get('screen', 'screen')->name('screen');
+        });
+
+        Route::prefix('orders')->name('order')->controller(OrderController::class)->group(function() {
+            Route::get('', 'index')->name('user_orders');
         });
     });
 });

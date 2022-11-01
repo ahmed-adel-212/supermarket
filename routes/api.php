@@ -29,6 +29,7 @@ Route::name('api.')->namespace('Api')->group(function() {
 
     Route::prefix('menu')->group(function() {
         Route::get('categories', [MenuController::class, 'categories'])->name('categories');
+        Route::get('categories/{category}', [MenuController::class, 'categoryProducts'])->name('categories.products');
 
         Route::get('{product}', [MenuController::class, 'productDetails'])->name('product.details');
     });

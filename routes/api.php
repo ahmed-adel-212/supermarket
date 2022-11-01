@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\FavouriteController;
+use App\Http\Controllers\Api\LoyaltyController;
 use App\Http\Controllers\Api\MenuController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -37,6 +38,10 @@ Route::name('api.')->group(function() {
 
     Route::middleware(['auth:api'])->group(function() {
         Route::resource('favourites', FavouriteController::class)->only(['index', 'update', 'destroy']);
+
+        Route::prefix('points')->controller(LoyaltyController::class)->name('points.')->group(function() {
+            Route::get('', 'index')->name('index');
+        });
     });
 });
 

@@ -36,7 +36,7 @@ Route::name('api.')->group(function() {
     });
 
     Route::middleware(['auth:api'])->group(function() {
-        Route::resource('favourites', FavouriteController::class)->only(['index', 'update', 'delete']);
+        Route::resource('favourites', FavouriteController::class)->only(['index', 'update', 'destroy']);
     });
 });
 

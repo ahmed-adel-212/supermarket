@@ -35,7 +35,7 @@ class FavouriteController extends AbstractApiController
 
         $product->is_favourite = true;
 
-        return $this->sendResponse(compact('product'), __('general.product_added_to_fav'));
+        return $this->sendResponse((object)[], __('general.product_added_to_fav'));
     }
 
     /**
@@ -46,6 +46,10 @@ class FavouriteController extends AbstractApiController
      */
     public function destroy($id)
     {
-        //
+        $product = Product::findOrFail($id);
+
+        auth()->user()->removeFromFavourites($product);
+
+        return $this->sendResponse((object)[], __('general.product_removed_from_fav'));
     }
 }

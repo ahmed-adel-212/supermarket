@@ -18,7 +18,7 @@ class OfferFactory extends Factory
     {
         return [
             'title' => [
-                'en' => fake()->sentence,
+                'en' => fake()->text(35),
                 'ar' => fake('ar_SA')->realText(35),
             ],
             'description' => [

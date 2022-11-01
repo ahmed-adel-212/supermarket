@@ -28,6 +28,8 @@ Route::name('api.')->namespace('Api')->group(function() {
     Route::post('register', [AuthController::class, 'register'])->name('register');
 
     Route::prefix('menu')->group(function() {
+        Route::get('categories', [MenuController::class, 'categories'])->name('categories');
+
         Route::get('{product}', [MenuController::class, 'productDetails'])->name('product.details');
     });
 

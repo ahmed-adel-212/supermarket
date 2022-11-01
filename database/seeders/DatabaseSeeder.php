@@ -78,10 +78,19 @@ class DatabaseSeeder extends Seeder
         );
 
         // categories && products
-        Category::factory(10)->create()->each(function (Category $category) {
-            $category->products()->createMany(
-                Product::factory(random_int(30, 70))->raw()
-            );
+        Category::factory(10)->create([
+            'category_id' => null,
+        ])->each(function (Category $category) {
+            // create sub categories
+            Category::factory(random_int(5, 10))->create([
+                'category_id' => $category->id,
+            ])->each(function (Category $sub_category) {
+                $sub_category->products()->createMany(
+                    Product::factory(random_int(30, 70))->raw([
+                        'category_id' => $sub_category->id,
+                    ])
+                );
+            });
         });
 
         // create offers

@@ -27,6 +27,8 @@ class Category extends Model
         'category_id' => 'int',
     ];
 
+    protected $appends = ['is_parent'];
+
     public function image(): Attribute
     {
         return Attribute::make(
@@ -34,7 +36,7 @@ class Category extends Model
         );
     }
 
-    public function is_parent(): Attribute
+    public function isParent(): Attribute
     {
         return Attribute::make(
             get: fn () => $this->category_id == null,
@@ -46,7 +48,7 @@ class Category extends Model
         return $this->hasMany(Product::class);
     }
 
-    public function categories(): HasMany
+    public function sub_categories(): HasMany
     {
         return $this->hasMany(Category::class, 'category_id');
     }

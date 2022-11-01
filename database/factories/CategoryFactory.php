@@ -15,12 +15,12 @@ class CategoryFactory extends Factory
     {
         return [
             'name' => [
-                'en' => $this->faker->sentence,
-                'ar' => $this->faker->sentence,
+                'en' => $this->faker->text(10),
+                'ar' => fake('ar_SA')->realText(15),
             ],
             'description' => [
                 'en' => $this->faker->text,
-                'ar' => $this->faker->text,
+                'ar' => fake('ar_SA')->realText,
             ],
             'image' => null,
         ];

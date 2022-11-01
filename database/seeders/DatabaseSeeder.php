@@ -78,7 +78,6 @@ class DatabaseSeeder extends Seeder
         );
 
         // categories && products
-<<<<<<< HEAD
         Category::factory(10)->create([
             'category_id' => null,
         ])->each(function (Category $category) {
@@ -92,12 +91,6 @@ class DatabaseSeeder extends Seeder
                     ])
                 );
             });
-=======
-        Category::factory(10)->create()->each(function (Category $category) {
-            $category->products()->createMany(
-                Product::factory(random_int(30, 70))->raw()
-            );
->>>>>>> NS
         });
 
         // create offers

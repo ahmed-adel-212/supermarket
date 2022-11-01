@@ -4,7 +4,6 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\FavouriteController;
 use App\Http\Controllers\Api\MenuController;
 use App\Http\Controllers\Api\ProfileController;
-use App\Http\Controllers\Api\MenuController;
 use App\Http\Controllers\Api\AddressesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;

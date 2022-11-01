@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class FavouriteController extends AbstractApiController
@@ -20,17 +21,6 @@ class FavouriteController extends AbstractApiController
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -39,7 +29,13 @@ class FavouriteController extends AbstractApiController
      */
     public function update(Request $request, $id)
     {
-        //
+        $product = Product::findOrFail($id);
+
+        auth()->user()->addToFavourites($product);
+
+        $product->is_favourite = true;
+
+        return $this->sendResponse(compact('product'), __('general.product_added_to_fav'));
     }
 
     /**

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\MenuController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,6 +26,10 @@ Route::name('api.')->namespace('Api')->group(function() {
     Route::post('login/cashier', [AuthController::class, 'cashierLogin'])->name('login.cashier');
 
     Route::post('register', [AuthController::class, 'register'])->name('register');
+
+    Route::prefix('menu')->group(function() {
+        Route::get('{product}', [MenuController::class, 'productDetails'])->name('product.details');
+    });
 
     Route::middleware(['auth:api'])->group(function() {
         

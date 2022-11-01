@@ -54,16 +54,16 @@ class Product extends Model
                 }
 
                 if ($this->offer->offer_type === 'buy-get') {
-                    return round($this->offer->offer_price, 2);
+                    return round($this->offer->offer_value, 2);
                 }
 
                 // offer is discount type
                 if ($this->offer->discount_type === 'value') {
-                    return round($this->price - $this->offer->offer_price, 2);
+                    return round($this->price - $this->offer->offer_value, 2);
                 }
 
                 // percentage
-                return round($this->price - ($this->price * ($this->offer->offer_price *0.01)), 2);
+                return round($this->price - ($this->price * ($this->offer->offer_value * 0.01)), 2);
             },
         );
     }

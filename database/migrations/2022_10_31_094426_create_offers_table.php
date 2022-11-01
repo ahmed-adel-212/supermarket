@@ -24,7 +24,7 @@ return new class extends Migration
             $table->enum('service_type', ['takeaway', 'delivery'])->default('delivery');
             $table->boolean('main')->default(false);
             $table->integer('quantity')->comment('or buy quantity');
-            $table->double('offer_price')->comment('or discount value');
+            $table->double('offer_value')->comment('offer price or discount value');
             // discount offer
             $table->enum('discount_type', ['value', 'percentage'])->default('percentage');
             // buy-and-get offer

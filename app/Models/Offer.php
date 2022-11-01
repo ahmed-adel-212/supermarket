@@ -28,7 +28,7 @@ class Offer extends Model
         'date_to' => 'datetime:Y-m-d',
         'main' => 'bool',
         'quantity' => 'int',
-        'offer_price' => 'double',
+        'offer_value' => 'double',
         'get_quantity' => 'int',
         'id' => 'int',
     ];

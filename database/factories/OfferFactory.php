@@ -28,7 +28,7 @@ class OfferFactory extends Factory
             'date_from' => today(),
             'date_to' => now()->addMonths(3),
             'quantity' => fake()->randomDigitNotZero(),
-            'offer_price' => fake()->randomFloat(2),
+            'offer_value' => fake()->randomFloat(2),
         ];
     }
 }

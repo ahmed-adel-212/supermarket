@@ -4,6 +4,18 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Address;
+use App\Models\Area;
+use App\Models\Banner;
+use App\Models\Category;
+use App\Models\City;
+use App\Models\Government;
+use App\Models\LoyaltyPoint;
+use App\Models\NotificationLog;
+use App\Models\Offer;
+use App\Models\OfferProduct;
+use App\Models\Order;
+use App\Models\Product;
 use App\Models\User;
 use Hash;
 use Illuminate\Database\Seeder;
@@ -17,28 +29,84 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        exec('php artisan passport:install');
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        User::factory(3)->sequence(
+            [
+                'email' => 'admintest@gmail.com',
+                'type' => 'admin',
+                'password' => Hash::make('admin123'),
+            ],
+            [
+                'email' => 'ahmed2@gmail.com',
+                'type' => 'cashier',
+                'password' => Hash::make('admin123'),
+            ],
+            [
+                'email' => 'md.sallam@gmail.com',
+                'password' => Hash::make('123456789'),
+            ]
+        )->create()->each(function (User $user) {
+            $user->token = $user->createToken('appName')->accessToken;
+            $user->save();
+        });
+        /** @var User $customer */
+        $customer = User::find(3);
 
-        User::factory()->create([
-            'email' => 'admintest@gmail.com',
-            'type' => 'admin',
-            'password' => Hash::make('admin123'),
-        ]);
+        // create other 30 users
+        User::factory(30)->create();
 
-        User::factory()->create([
-            'email' => 'ahmed2@gmail.com',
-            'type' => 'cashier',
-            'password' => Hash::make('admin123'),
-        ]);
+        // create banner images
+        Banner::factory(15)->create();
 
-        User::factory()->create([
-            'email' => 'md.sallam@gmail.com',
-            'password' => Hash::make('123456789'),
-        ]);
+        // create governments && cities && areas
+        Government::factory(15)->create()->each(function (Government $government) {
+            City::factory(10)->create([
+                'government_id' => $government->id,
+            ])->each(function (City $city) {
+                Area::factory(random_int(3, 15))->create([
+                    'city_id' => $city->id,
+                ]);
+            });
+        });
+
+        // create addresses for only customer
+        $customer->addresses()->createMany(
+            Address::factory(random_int(1, 5))->raw([
+                'area_id' => Area::inRandomOrder()->first()->id,
+            ])
+        );
+
+        // categories && products
+        Category::factory(10)->create()->each(function (Category $category) {
+            $category->products()->createMany(
+                Product::factory(random_int(30, 70))->raw()
+            );
+        });
+
+        // create offers
+        Offer::factory(7)->create()->each(function (Offer $offer) {
+            foreach (range(5, 15) as $i) {
+                $pId = Product::inRandomOrder()->first()->id;
+                if (!OfferProduct::where('offer_id', $offer->id)->where('product_id', $pId)->exists()) {
+                    $offer->products()->attach($pId);
+                }
+            }
+        });
+
+        // create orders
+        // create manually
+
+
+        // favourites
+        foreach (range(2, 25) as $i) {
+            $customer->favourites()->attach(Product::inRandomOrder()->first());
+        }
+
+        // notification logs
+        NotificationLog::factory(15)->create();
+
+        // loyality
+        LoyaltyPoint::factory(3)->create();
     }
 }

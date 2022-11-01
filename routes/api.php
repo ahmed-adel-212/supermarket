@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ProfileController;
+use App\Http\Controllers\Api\MenuController;
+use App\Http\Controllers\Api\AddressesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -27,9 +29,16 @@ Route::name('api.')->namespace('Api')->group(function() {
     
     Route::post('register', [AuthController::class, 'register'])->name('register');
 
+    Route::prefix('menu')->group(function() {
+        Route::get('{product}', [MenuController::class, 'productDetails'])->name('product.details');
+    });
+
     Route::middleware(['auth:api'])->group(function() {
             Route::post('userinfo/{userId}', [ProfileController::class, 'userInfo'])->name('userInfo');
             Route::post('edituserInfo/{userId}', [ProfileController::class, 'EditUserInfo'])->name('userInfo');
+            Route::get('address/store', [AddressesController::class, 'store'])->name('CreateAddress');
+            Route::post('address/update/{address_id}', [AddressesController::class, 'update'])->name('updateAddress');
+            Route::post('address/destroy/{address_id}', [AddressesController::class, 'destroy'])->name('destroyAddress');
     });
 });
 

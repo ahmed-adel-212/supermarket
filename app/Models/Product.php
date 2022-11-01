@@ -11,7 +11,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Spatie\Translatable\HasTranslations;
+use App\Traits\HasTranslations;
+use DB;
 
 class Product extends Model
 {
@@ -27,12 +28,12 @@ class Product extends Model
     protected $casts = [
         'id' => 'int',
         'category_id' => 'int',
-        'offer_id' => 'int',
+        // 'offer_id' => 'int',
         'price' => 'double',
         'recommended' => 'boolean',
         'offer_price' => 'double',
     ];
-    
+
     protected $appends = [
         'offer_price',
         'is_favourite'
@@ -48,22 +49,29 @@ class Product extends Model
     public function offerPrice(): Attribute
     {
         return Attribute::make(
-            get: function() {
-                if (!$this->offer_id || !$this->offer->is_available) {
+            get: function () {
+                $offersCount = $this->offer()->where(DB::raw('DATE(date_from)'), '<=', now())->where(DB::raw('DATE(date_to)'), '>=', now())->count();
+                if ($offersCount < 1) {
                     return 0;
                 }
 
-                if ($this->offer->offer_type === 'buy-get') {
-                    return round($this->offer->offer_price, 2);
+                $offer = $this->offer()->where(DB::raw('DATE(date_from)'), '<=', now())->where(DB::raw('DATE(date_to)'), '>=', now())->first();
+
+                // if (!$offer?->is_available) {
+                //     return 0;
+                // }
+
+                if ($offer->offer_type === 'buy-get') {
+                    return round($offer->offer_value, 2);
                 }
 
                 // offer is discount type
-                if ($this->offer->discount_type === 'value') {
-                    return round($this->price - $this->offer->offer_price, 2);
+                if ($offer->discount_type === 'value') {
+                    return round($this->price - $offer->offer_value, 2);
                 }
 
                 // percentage
-                return round($this->price - ($this->price * ($this->offer->offer_price *0.01)), 2);
+                return round($this->price - ($this->price * ($offer->offer_value * 0.01)), 2);
             },
         );
     }

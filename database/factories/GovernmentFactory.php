@@ -2,13 +2,12 @@
 
 namespace Database\Factories;
 
-use App\Models\Government;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\City>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Government>
  */
-class CityFactory extends Factory
+class GovernmentFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,11 +17,10 @@ class CityFactory extends Factory
     public function definition()
     {
         return [
-            'government_id' => fn() => Government::factory(),
             'name' => [
-                'ar' => fake('ar/SA')->city,
-                'en' => fake()->city,
-            ],
+                'en' => fake()->realText(10),
+                'ar' => fake('ar/SA')->realText(10),
+            ]
         ];
     }
 }

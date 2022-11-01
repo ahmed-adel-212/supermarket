@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Spatie\Translatable\HasTranslations;
+use App\Traits\HasTranslations;
 
 class Offer extends Model
 {
@@ -28,7 +28,7 @@ class Offer extends Model
         'date_to' => 'datetime:Y-m-d',
         'main' => 'bool',
         'quantity' => 'int',
-        'offer_price' => 'double',
+        'offer_value' => 'double',
         'get_quantity' => 'int',
         'id' => 'int',
     ];

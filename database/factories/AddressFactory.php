@@ -26,6 +26,9 @@ class AddressFactory extends Factory
             'area_id' => fn() => Area::factory(),
             'name' => fake()->address,
             'street' => fake()->streetName,
+            'building_number' => fake()->randomDigitNotZero(),
+            'floor_number' => fake()->randomDigitNotZero(),
+            'landmark' => fake()->word,
         ];
     }
 }

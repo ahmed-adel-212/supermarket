@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\LoyaltyController;
 use App\Http\Controllers\Api\MenuController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\AddressesController;
+use App\Http\Controllers\Api\CashierController;
 use App\Http\Controllers\Api\OfferController;
 use App\Http\Controllers\Api\OrderController;
 use Illuminate\Http\Request;
@@ -62,8 +63,11 @@ Route::name('api.')->group(function () {
 
         Route::prefix('orders')->name('orders.')->controller(OrderController::class)->group(function() {
             Route::get('', 'index')->name('user');
-            Route::get('/cashier', 'cashierOrders')->name('cashier')->middleware('user_type:cashier');
             Route::post('', 'store')->name('store');
+        });
+
+        Route::prefix('cashier')->name('cashier.')->middleware('user_type:cashier')->controller(CashierController::class)->group(function() {
+            Route::get('', 'index')->name('customer');
         });
     });
 });

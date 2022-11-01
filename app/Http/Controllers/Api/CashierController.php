@@ -7,7 +7,7 @@ use App\Models\Order;
 use DB;
 use Illuminate\Http\Request;
 
-class OrderController extends AbstractApiController
+class CashierController extends AbstractApiController
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +17,7 @@ class OrderController extends AbstractApiController
     public function index()
     {
         return $this->sendResponse([
-            'orders' => auth()->user()->orders()->with(['products'])->paginate(),
+            'orders' => Order::with(['products', 'customer'])->whereRaw('Date(created_at) >= CURDATE()')->paginate(),
         ]);
     }
 

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\FavouriteController;
 use App\Http\Controllers\Api\MenuController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -35,7 +36,7 @@ Route::name('api.')->namespace('Api')->group(function() {
     });
 
     Route::middleware(['auth:api'])->group(function() {
-        
+        Route::resource('favourites', FavouriteController::class)->only(['index', 'store', 'delete']);
     });
 });
 

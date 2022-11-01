@@ -29,12 +29,8 @@ class MenuController extends AbstractApiController
 
         $firstSubCategory = $categories->first()->sub_categories?->first();
 
-<<<<<<< HEAD
-        $firstSubCategory->products = Product::where('category_id', $firstSubCategory->id)->paginate();
-=======
         // load products of only first category
         $firstSubCategory->products = Product::filter(new ProductFilters(new Request($request->filter)))->where('category_id', $firstSubCategory->id)->paginate();
->>>>>>> NS
 
         return $this->sendResponse(compact('categories'));
     }

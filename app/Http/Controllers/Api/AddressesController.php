@@ -15,27 +15,16 @@ class AddressesController extends AbstractApiController
 {
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => ['required', 'string'],
-            'street' => ['nullable', 'string'],
-            'building_number' => ['nullable', 'string'],
-            'floor_number' => ['nullable', 'string'],
-            'landmark' => ['nullable'],
-            'area_id' => ['required', 'exists:areas,id'],
-            'user_id' => ['exists:users,id'],
-        ]);
+        //validation
+        $validator = Validator::make($request->all(), Address::creatValidation);
         if ($validator->fails())
-            return $this->sendError(__('general.validation_errors'), $validator->errors(), 400);
+            return $this->sendError( $validator->errors(), __('general.validation_errors'));
 
         $address = Address::firstOrCreate($request->all());
-
-        if (!$address)
-            return $this->sendError(__('general.error'), 400);
-
         return $this->sendResponse($address, __('general.address.created'));
     }
 
-    public function update(Request $request,$addressId)
+    public function update(Request $request)
     {
         $address = Address::find($addressId);
         $validator = Validator::make($request->all(), [
@@ -58,16 +47,14 @@ class AddressesController extends AbstractApiController
         return $this->sendResponse($address, __('general.address.updated'));
     }
 
-    public function destroy($addressId, Request $request)
+    public function destroy(Request $request)
     {
         $address=Address::find($addressId);
-        if ($request->user()) {
-            if ($address->user_id == auth()->user()->id) {
-                if ($address->delete())
-                    return $this->sendResponse(null, __('general.address deleted successfully'));
-            }
-        } 
-            return $this->sendError(__('general.error'));
+        if ($address->user_id == $request->user()->id) {
+            if ($address->delete())
+                return $this->sendResponse(null, __('general.address deleted successfully'));
+        }
+        return $this->sendError(null,__('general.error'));
     }
 }
 

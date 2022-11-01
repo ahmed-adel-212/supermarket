@@ -8,18 +8,19 @@ use Illuminate\Http\Request;
 class AbstractApiController extends Controller
 {
     /**
-     * success response method.
+     * For format succes response.
      *
-     * @param $result array
-     * @param $message string
-     * @return \Illuminate\Http\Response
+     * @param $data
+     * @param $message
+     * @param $code
+     * @return Response json 
      */
-    public function sendResponse($result, $message = '', $code = 200)
+    public function sendResponse($data, $message = 'success', $code = 200)
     {
     	$response = [
             'success' => true,
-            'data'    => $result,
             'message' => $message,
+            'data'    => $data,
         ];
 
         return response()->json($response, $code);
@@ -27,17 +28,19 @@ class AbstractApiController extends Controller
 
 
     /**
-     * return error response.
-     *
-     * @param erorr
-     * @return \Illuminate\Http\Response
+     * For format error response.
+     * 
+     * @param $data
+     * @param $message
+     * @param $code
+     * @return Response json 
      */
-    public function sendError($error, $errorMessages = [], $code = 404)
+    public function sendError($message = 'error', $data=null, $code = 400)
     {
     	$response = [
             'success' => false,
-            'message' => $error,
-            'data' => $errorMessages,
+            'message' => $message,
+            'data' => $data,
         ];
 
         return response()->json($response, $code);

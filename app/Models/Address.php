@@ -16,19 +16,42 @@ class Address extends Model
 
     protected $guarded = [];
 
-    protected $casts = [
-        'id' => 'int',
-        'user_id' => 'int',
-        'area_id' => 'int',
-        'building_number' => 'int',
-        'floor_number' => 'int',
+    Protected static $creatValidation = [
+        'name' => ['required', 'string'],
+        'street' => ['nullable', 'string'],
+        'building_number' => ['nullable', 'string'],
+        'floor_number' => ['nullable', 'string'],
+        'landmark' => ['nullable'],
+        'area_id' => ['required', 'exists:areas,id'],
+        'user_id' => ['exists:users,id'],
     ];
 
+    Protected static $editValidation = [
+        'name' => ['required', 'string'],
+        'street' => ['nullable', 'string'],
+        'building_number' => ['nullable', 'string'],
+        'floor_number' => ['nullable', 'string'],
+        'landmark' => ['nullable'],
+        'area_id' => ['required', 'exists:areas,id'],
+        'user_id' => ['exists:users,id'],
+    ];
+
+    Protected static $validationMessages = [
+
+    ];
+
+
+    /**
+     * user relation
+     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * area relation
+     */
     public function area(): BelongsTo
     {
         return $this->belongsTo(Area::class);

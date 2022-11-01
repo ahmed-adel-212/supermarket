@@ -51,7 +51,7 @@ Route::name('api.')->group(function () {
         Route::post('userinfo/{userId}', [ProfileController::class, 'userInfo'])->name('userInfo');
         Route::post('edituserInfo/{userId}', [ProfileController::class, 'EditUserInfo'])->name('userInfo');
         Route::get('address/store', [AddressesController::class, 'store'])->name('CreateAddress');
-        Route::post('address/update/{address_id}', [AddressesController::class, 'update'])->name('updateAddress');
+        Route::post('address/update', [AddressesController::class, 'update'])->name('updateAddress');
         Route::post('address/destroy/{address_id}', [AddressesController::class, 'destroy'])->name('destroyAddress');
 
         Route::prefix('points')->controller(LoyaltyController::class)->name('points.')->group(function () {

@@ -9,7 +9,8 @@ use App\Models\OfferProduct;
 use App\Models\Product;
 use DB;
 use Illuminate\Http\Request;
-
+use App\Filters\CategoryFilter;
+use App\Filters\ProductFilters;
 class MenuController extends AbstractApiController
 {
     public function productDetails(Request $request, int $product)
@@ -24,7 +25,7 @@ class MenuController extends AbstractApiController
     public function categories(Request $request)
     {
         // get all parent categories with sub categories
-        $categories = Category::with('sub_categories')->whereNull('category_id')->get();
+         $categories = Category::filter(new CategoryFilter(new Request($request->filter)))->with('sub_categories')->whereNull('category_id')->get();
 
         $firstSubCategory = $categories->first()->sub_categories?->first();
 
@@ -37,8 +38,7 @@ class MenuController extends AbstractApiController
     public function categoryProducts(Request $request, int $category)
     {
         $category = Product::findOrFail($category);
-
-        $products = Product::where('category_id', $category->id)->paginate();
+        $products = Product::filter(new ProductFilters(new Request($request->filter)))->where('category_id', $category->id)->paginate();
 
         return $this->sendResponse(compact('products'));
     }

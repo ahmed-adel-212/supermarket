@@ -5,7 +5,6 @@ use App\Http\Controllers\Api\FavouriteController;
 use App\Http\Controllers\Api\LoyaltyController;
 use App\Http\Controllers\Api\MenuController;
 use App\Http\Controllers\Api\ProfileController;
-use App\Http\Controllers\Api\MenuController;
 use App\Http\Controllers\Api\AddressesController;
 use App\Http\Controllers\Api\OfferController;
 use Illuminate\Http\Request;

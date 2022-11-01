@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
+use App\Filters\QueryFilter;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\HasTranslations;
 use DB;
@@ -112,5 +113,10 @@ class Product extends Model
     public function favourites(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'favourite_product')->as('favourite_product');
+    }
+
+    public function scopeFilter($query, QueryFilter $filters)
+    {
+        return $filters->apply($query);
     }
 }

@@ -9,6 +9,7 @@ use App\Models\Area;
 use App\Models\Banner;
 use App\Models\Category;
 use App\Models\City;
+use App\Models\Government;
 use App\Models\LoyaltyPoint;
 use App\Models\NotificationLog;
 use App\Models\Offer;
@@ -58,11 +59,15 @@ class DatabaseSeeder extends Seeder
         // create banner images
         Banner::factory(15)->create();
 
-        // create cities && areas
-        City::factory(10)->create()->each(function (City $city) {
-            Area::factory(random_int(3, 15))->create([
-                'city_id' => $city->id,
-            ]);
+        // create governments && cities && areas
+        Government::factory(15)->create()->each(function (Government $government) {
+            City::factory(10)->create([
+                'government_id' => $government->id,
+            ])->each(function (City $city) {
+                Area::factory(random_int(3, 15))->create([
+                    'city_id' => $city->id,
+                ]);
+            });
         });
 
         // create addresses for only customer

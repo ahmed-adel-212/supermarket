@@ -15,7 +15,7 @@ class FavouriteController extends AbstractApiController
     public function index()
     {
         return $this->sendResponse([
-            'favouries' => auth()->user()->favouries,
+            'favouries' => auth()->user()->favourites,
         ]);
     }
 

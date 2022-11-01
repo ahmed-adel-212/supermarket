@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 
-Route::name('api.')->namespace('Api')->group(function() {
+Route::name('api.')->group(function() {
     Route::post('login', [AuthController::class, 'login'])->name('login');
     Route::post('login/cashier', [AuthController::class, 'cashierLogin'])->name('login.cashier');
 

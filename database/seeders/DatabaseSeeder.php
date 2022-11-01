@@ -15,6 +15,7 @@ use App\Models\NotificationLog;
 use App\Models\Offer;
 use App\Models\OfferProduct;
 use App\Models\Order;
+use App\Models\PointTransaction;
 use App\Models\Product;
 use App\Models\User;
 use Hash;
@@ -117,5 +118,10 @@ class DatabaseSeeder extends Seeder
 
         // loyality
         LoyaltyPoint::factory(3)->create();
+
+        // points transaction
+        PointTransaction::factory(15)->create([
+            'user_id' => 3 // customer
+        ]);
     }
 }

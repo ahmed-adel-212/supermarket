@@ -41,6 +41,8 @@ Route::name('api.')->group(function() {
 
         Route::prefix('points')->controller(LoyaltyController::class)->name('points.')->group(function() {
             Route::get('', 'index')->name('index');
+            Route::get('history', 'history')->name('history');
+            Route::get('screen', 'screen')->name('screen');
         });
     });
 });

@@ -17,7 +17,7 @@ class LoyaltyPointFactory extends Factory
     public function definition()
     {
         return [
-            'points' => fake()->randomDigit(),
+            'points' => random_int(50, 250),
             'price' => fake()->randomFloat(2, 0, 1000),
         ];
     }

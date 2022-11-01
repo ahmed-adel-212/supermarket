@@ -117,4 +117,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Address::class);
     }
+
+    public function points(): HasMany
+    {
+        return $this->hasMany(PointTransaction::class);
+    }
 }

@@ -33,6 +33,7 @@ class Product extends Model
         'price' => 'double',
         'recommended' => 'boolean',
         'offer_price' => 'double',
+        'stock' => 'int',
     ];
 
     protected $appends = [

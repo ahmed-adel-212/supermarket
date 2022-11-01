@@ -27,8 +27,8 @@ return new class extends Migration
             $table->double('taxes')->default(0);
             $table->double('delivery_fees')->default(0);
             $table->integer('points')->default(0);
-            $table->double('points_paid')->default(0);
-            $table->double('offer_value')->default(0);
+            $table->double('points_price')->default(0);
+            $table->double('offer_discount')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

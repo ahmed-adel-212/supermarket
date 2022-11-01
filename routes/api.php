@@ -68,6 +68,9 @@ Route::name('api.')->group(function () {
 
         Route::prefix('cashier')->name('cashier.')->middleware('user_type:cashier')->controller(CashierController::class)->group(function() {
             Route::get('', 'index')->name('customer');
+            Route::put('{order_id}/accept', 'accept')->name('accept');
+            Route::put('{order_id}/reject', 'reject')->name('reject');
+            Route::put('{order_id}/complete', 'complete')->name('complete');
         });
     });
 });

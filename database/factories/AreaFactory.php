@@ -20,8 +20,8 @@ class AreaFactory extends Factory
         return [
             'city_id' => fn() => City::factory(),
             'name' => [
-                'en' => fake()->sentence,
-                'ar' => fake('ar/SA')->name,
+                'en' => fake()->city,
+                'ar' => fake('ar/SA')->city,
             ],
             'description' => [
                 'en' => fake()->text,

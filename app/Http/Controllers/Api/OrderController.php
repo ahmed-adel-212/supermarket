@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
+use DB;
 use Illuminate\Http\Request;
 
 class OrderController extends AbstractApiController
@@ -15,7 +17,19 @@ class OrderController extends AbstractApiController
     public function index()
     {
         return $this->sendResponse([
-            'orders' => auth()->user()->orders()->paginate(),
+            'orders' => auth()->user()->orders()->with(['products'])->paginate(),
+        ]);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function cashierOrders()
+    {
+        return $this->sendResponse([
+            'orders' => Order::whereRaw('Date(created_at) >= CURDATE()')->paginate(),
         ]);
     }
 
@@ -27,7 +41,7 @@ class OrderController extends AbstractApiController
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**

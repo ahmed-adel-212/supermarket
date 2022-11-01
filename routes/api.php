@@ -60,8 +60,10 @@ Route::name('api.')->group(function () {
             Route::get('screen', 'screen')->name('screen');
         });
 
-        Route::prefix('orders')->name('order')->controller(OrderController::class)->group(function() {
-            Route::get('', 'index')->name('user_orders');
+        Route::prefix('orders')->name('orders.')->controller(OrderController::class)->group(function() {
+            Route::get('', 'index')->name('user');
+            Route::get('/cashier', 'cashierOrders')->name('cashier')->middleware('user_type:cashier');
+            Route::post('', 'store')->name('store');
         });
     });
 });

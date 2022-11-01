@@ -20,7 +20,7 @@ return new class extends Migration
             // $table->foreignId('loyalty_point_id')->nullable()->constrained()->onDelete('NO ACTION');
             $table->double('points');
             $table->double('price');
-            $table->enum('status', ['pending', 'used', 'gained', 'rejected'])->default('pending');
+            $table->enum('status', ['pending', 'used', 'gained'])->default('pending');
             $table->timestamps();
         });
     }

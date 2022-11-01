@@ -38,6 +38,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'token',
     ];
 
     /**
@@ -81,6 +82,32 @@ class User extends Authenticatable
         return $this->belongsToMany(Product::class, 'favourite_product')->as('favourite_product');
     }
 
+    /**
+     * add an products to favourites
+     *
+     * @param product $product
+     * @return void
+     */
+    public function addToFavourites(Product $product)
+    {
+        if ($product->is_favourite) return;
+
+        $this->favourites()->attach($product);
+    }
+
+    /**
+     * remove an products from favourites
+     *
+     * @param products $product
+     * @return void
+     */
+    public function removeFromFavourites(Product $product)
+    {
+        if (!$product->is_favourite) return;
+
+        $this->favourites()->detach($product);
+    }
+
     public function payments(): HasMany
     {
         return $this->hasMany(Payment::class);
@@ -89,5 +116,10 @@ class User extends Authenticatable
     public function addresses(): HasMany
     {
         return $this->hasMany(Address::class);
+    }
+
+    public function points(): HasMany
+    {
+        return $this->hasMany(PointTransaction::class);
     }
 }

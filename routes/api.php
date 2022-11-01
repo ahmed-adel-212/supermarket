@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\ProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,11 +24,12 @@ use Illuminate\Support\Facades\Route;
 Route::name('api.')->namespace('Api')->group(function() {
     Route::post('login', [AuthController::class, 'login'])->name('login');
     Route::post('login/cashier', [AuthController::class, 'cashierLogin'])->name('login.cashier');
-
+    
     Route::post('register', [AuthController::class, 'register'])->name('register');
 
     Route::middleware(['auth:api'])->group(function() {
-        
+            Route::post('userinfo/{userId}', [ProfileController::class, 'userInfo'])->name('userInfo');
+            Route::post('edituserInfo/{userId}', [ProfileController::class, 'EditUserInfo'])->name('userInfo');
     });
 });
 

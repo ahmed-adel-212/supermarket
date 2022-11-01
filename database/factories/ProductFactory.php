@@ -23,11 +23,11 @@ class ProductFactory extends Factory
             // 'offer_id' => fn() => fake()->boolean(40) ? Offer::factory() : null,
             'name' => [
                 'en' => fake()->sentence,
-                'ar' => fake('ar/SA')->realText(10),
+                'ar' => fake('ar_SA')->realText(15),
             ],
             'description' => [
                 'en' => fake()->text,
-                'ar' => fake('ar/SA')->realText,
+                'ar' => fake('ar_SA')->realText,
             ],
             'price' => fake()->randomFloat(2, 50, 1500),
             'recommended' => fake()->boolean(30),

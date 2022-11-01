@@ -19,11 +19,11 @@ class OfferFactory extends Factory
         return [
             'title' => [
                 'en' => fake()->sentence,
-                'ar' => fake()->sentence,
+                'ar' => fake('ar_SA')->realText(35),
             ],
             'description' => [
                 'en' => fake()->realText,
-                'ar' => fake('ar/SA')->realText,
+                'ar' => fake('ar_SA')->realText,
             ],
             'date_from' => today(),
             'date_to' => now()->addMonths(3),

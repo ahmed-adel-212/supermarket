@@ -19,7 +19,7 @@ class GovernmentFactory extends Factory
         return [
             'name' => [
                 'en' => fake()->realText(10),
-                'ar' => fake('ar/SA')->realText(10),
+                'ar' => fake('ar_SA')->realText(10),
             ]
         ];
     }

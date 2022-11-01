@@ -20,7 +20,7 @@ class CityFactory extends Factory
         return [
             'government_id' => fn() => Government::factory(),
             'name' => [
-                'ar' => fake('ar/SA')->city,
+                'ar' => fake('ar_SA')->city,
                 'en' => fake()->city,
             ],
         ];

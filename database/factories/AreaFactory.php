@@ -21,11 +21,11 @@ class AreaFactory extends Factory
             'city_id' => fn() => City::factory(),
             'name' => [
                 'en' => fake()->city,
-                'ar' => fake('ar/SA')->city,
+                'ar' => fake('ar_SA')->city,
             ],
             'description' => [
                 'en' => fake()->text,
-                'ar' => fake('ar/SA')->realText,
+                'ar' => fake('ar_SA')->realText,
             ],
             'delivery_fees' => fake()->boolean(40) ? fake()->randomFloat(2) : 0,
         ];

@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\FavouriteController;
 use App\Http\Controllers\Api\LoyaltyController;
 use App\Http\Controllers\Api\MenuController;
+use App\Http\Controllers\Api\OfferController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -34,6 +35,11 @@ Route::name('api.')->group(function() {
         Route::get('categories/{category}', [MenuController::class, 'categoryProducts'])->name('categories.products');
 
         Route::get('{product}', [MenuController::class, 'productDetails'])->name('product.details');
+    });
+
+    Route::prefix('offer')->group(function() {
+        Route::get('categories', [OfferController::class, 'categories'])->name('categories');
+        Route::get('categories/{category}', [OfferController::class, 'categoryProducts'])->name('categories.products');
     });
 
     Route::middleware(['auth:api'])->group(function() {

@@ -1,14 +1,11 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
-<<<<<<< HEAD
 use App\Http\Controllers\Api\FavouriteController;
 use App\Http\Controllers\Api\MenuController;
-=======
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\MenuController;
 use App\Http\Controllers\Api\AddressesController;
->>>>>>> NS
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 

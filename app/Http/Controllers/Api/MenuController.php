@@ -12,20 +12,14 @@ use Illuminate\Http\Request;
 
 class MenuController extends AbstractApiController
 {
-<<<<<<< HEAD
     public function productDetails(Request $request, int $product)
     {
         $product = Product::findOrFail($product);
 
-=======
-    public function productDetails(Request $request, Product $product)
-    {
->>>>>>> NS
         $related = Product::where('category_id', $product->category_id)->inRandomOrder()->limit(8)->get();
 
         return $this->sendResponse(compact('product', 'related'));
     }
-<<<<<<< HEAD
 
     public function categories(Request $request)
     {
@@ -48,6 +42,4 @@ class MenuController extends AbstractApiController
 
         return $this->sendResponse(compact('products'));
     }
-=======
->>>>>>> NS
 }

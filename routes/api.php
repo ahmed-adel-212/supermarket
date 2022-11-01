@@ -1,8 +1,14 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+<<<<<<< HEAD
 use App\Http\Controllers\Api\FavouriteController;
 use App\Http\Controllers\Api\MenuController;
+=======
+use App\Http\Controllers\Api\ProfileController;
+use App\Http\Controllers\Api\MenuController;
+use App\Http\Controllers\Api\AddressesController;
+>>>>>>> NS
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,7 +31,7 @@ use Illuminate\Support\Facades\Route;
 Route::name('api.')->namespace('Api')->group(function() {
     Route::post('login', [AuthController::class, 'login'])->name('login');
     Route::post('login/cashier', [AuthController::class, 'cashierLogin'])->name('login.cashier');
-
+    
     Route::post('register', [AuthController::class, 'register'])->name('register');
 
     Route::prefix('menu')->group(function() {
@@ -37,6 +43,11 @@ Route::name('api.')->namespace('Api')->group(function() {
 
     Route::middleware(['auth:api'])->group(function() {
         Route::resource('favourites', FavouriteController::class)->only(['index', 'store', 'delete']);
+            Route::post('userinfo/{userId}', [ProfileController::class, 'userInfo'])->name('userInfo');
+            Route::post('edituserInfo/{userId}', [ProfileController::class, 'EditUserInfo'])->name('userInfo');
+            Route::get('address/store', [AddressesController::class, 'store'])->name('CreateAddress');
+            Route::post('address/update/{address_id}', [AddressesController::class, 'update'])->name('updateAddress');
+            Route::post('address/destroy/{address_id}', [AddressesController::class, 'destroy'])->name('destroyAddress');
     });
 });
 

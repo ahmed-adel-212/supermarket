@@ -27,8 +27,8 @@ class AuthController extends AbstractApiController
             if ($user->isCustomer()) {
                 $data = [
                     'userData' => $user,
-                    // 'token' => $user->createToken('AppName')->accessToken,
-                    'token' => $user->token,
+                     'token' => $user->createToken('AppName')->accessToken,
+                   // 'token' => $user->token,
                 ];
 
                 return $this->sendResponse($data, __('auth.logged'));

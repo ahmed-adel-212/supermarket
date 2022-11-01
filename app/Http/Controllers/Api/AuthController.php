@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\LoginRequest;
 use App\Models\User;
 use Auth;
 use Hash;
@@ -10,12 +11,12 @@ use Illuminate\Http\Request;
 
 class AuthController extends AbstractApiController
 {
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
-        $request->validate([
-            'email' => 'required|email|exists:users,email',
-            'password' => 'required|string',
-        ]);
+        // $request->validate([
+        //     'email' => 'required|email|exists:users,email',
+        //     'password' => 'required|string|max:2',
+        // ]);
 
         $credentials = [
             'email' => $request->email,
@@ -38,7 +39,7 @@ class AuthController extends AbstractApiController
         return $this->sendError(__('auth.unauthorised!'), $credentials, 401);
     }
 
-    public function cashierLogin(Request $request)
+    public function cashierLogin(LoginRequest $request)
     {
         $request->validate([
             'email' => 'required|email|exists:users,email',

@@ -25,11 +25,16 @@ class MenuController extends AbstractApiController
     public function categories(Request $request)
     {
         // get all parent categories with sub categories
-         $categories = Category::filter(new CategoryFilter(new Request($request->filter)))->with('sub_categories')->whereNull('category_id')->get();
+         $categories = Category::with('sub_categories')->whereNull('category_id')->get();
 
         $firstSubCategory = $categories->first()->sub_categories?->first();
 
+<<<<<<< HEAD
         $firstSubCategory->products = Product::where('category_id', $firstSubCategory->id)->paginate();
+=======
+        // load products of only first category
+        $firstSubCategory->products = Product::filter(new ProductFilters(new Request($request->filter)))->where('category_id', $firstSubCategory->id)->paginate();
+>>>>>>> NS
 
         return $this->sendResponse(compact('categories'));
     }

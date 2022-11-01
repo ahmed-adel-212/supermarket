@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\NotificationToken;
 use Auth;
 use Hash;
 use Illuminate\Http\Request;
@@ -30,7 +31,11 @@ class AuthController extends AbstractApiController
                      'token' => $user->createToken('AppName')->accessToken,
                    // 'token' => $user->token,
                 ];
-
+                
+                if ($request->has('device_token')) {
+                    NotificationToken::create(['user_id'=>$user->id,'token'=>$request->device_token]);
+                }
+                \App\Http\Controllers\NotificationController::sendNotification($user->id, "New Order has been placed", "Order");
                 return $this->sendResponse($data, __('auth.logged'));
             }
         }

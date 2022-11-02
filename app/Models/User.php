@@ -57,6 +57,9 @@ class User extends Authenticatable
         );
     }
 
+    // image_pass will contain url
+    // image return native image
+
     public function isAdmin()
     {
         return $this->type === 'admin';

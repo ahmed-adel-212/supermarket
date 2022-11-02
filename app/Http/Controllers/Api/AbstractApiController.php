@@ -18,8 +18,8 @@ class AbstractApiController extends Controller
     {
     	$response = [
             'success' => true,
-            'data'    => $result,
             'message' => $message,
+            'data'    => $result,
         ];
 
         return response()->json($response, $code);
@@ -32,7 +32,7 @@ class AbstractApiController extends Controller
      * @param erorr
      * @return \Illuminate\Http\Response
      */
-    public function sendError($error, $errorMessages = [], $code = 404)
+    public function sendError($error, $errorMessages = [], $code = 400)
     {
     	$response = [
             'success' => false,

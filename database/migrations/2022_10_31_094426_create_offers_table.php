@@ -23,12 +23,12 @@ return new class extends Migration
             $table->enum('offer_type', ['discount', 'buy-get'])->default('discount');
             $table->enum('service_type', ['takeaway', 'delivery'])->default('delivery');
             $table->boolean('main')->default(false);
-            $table->integer('quantity')->comment('or buy quantity');
             $table->double('offer_value')->comment('offer price or discount value');
             // discount offer
-            $table->enum('discount_type', ['value', 'percentage'])->default('percentage');
+            $table->enum('discount_type', ['value', 'percentage', 'free'])->default('percentage');
             // buy-and-get offer
             $table->integer('get_quantity')->nullable();
+            $table->integer('buy_quantity')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

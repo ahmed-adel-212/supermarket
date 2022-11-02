@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('order_id')->constrained()->onDelete('NO ACTION');
             // $table->foreignId('loyalty_point_id')->nullable()->constrained()->onDelete('NO ACTION');
             $table->double('points');
-            $table->double('price');
+            $table->double('price')->default(0);
             $table->enum('status', ['pending', 'used', 'gained'])->default('pending');
             $table->timestamps();
         });

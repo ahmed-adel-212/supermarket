@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\LoyaltyController;
 use App\Http\Controllers\Api\MenuController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\AddressesController;
+use App\Http\Controllers\Api\CashierController;
 use App\Http\Controllers\Api\OfferController;
 use App\Http\Controllers\Api\OrderController;
 use Illuminate\Http\Request;
@@ -29,7 +30,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::name('api.')->group(function () {
     Route::post('login', [AuthController::class, 'login'])->name('login');
-    Route::post('login/cashier', [AuthController::class, 'cashierLogin'])->name('login.cashier');
+    // Route::post('login/cashier', [AuthController::class, 'cashierLogin'])->name('login.cashier');
 
     Route::post('register', [AuthController::class, 'register'])->name('register');
 
@@ -60,8 +61,16 @@ Route::name('api.')->group(function () {
             Route::get('screen', 'screen')->name('screen');
         });
 
-        Route::prefix('orders')->name('order')->controller(OrderController::class)->group(function() {
-            Route::get('', 'index')->name('user_orders');
+        Route::prefix('orders')->name('orders.')->controller(OrderController::class)->group(function() {
+            Route::get('', 'index')->name('user');
+            Route::post('', 'store')->name('store');
+        });
+
+        Route::prefix('cashier')->name('cashier.')->middleware('user_type:cashier')->controller(CashierController::class)->group(function() {
+            Route::get('', 'index')->name('customer');
+            Route::put('{order_id}/accept', 'accept')->name('accept');
+            Route::put('{order_id}/reject', 'reject')->name('reject');
+            Route::put('{order_id}/complete', 'complete')->name('complete');
         });
     });
 });
